@@ -1,64 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:tetris/presentation/app/app_cubit.dart';
+import 'package:tetris/presentation/router/main_router.gr.dart';
+import 'package:tetris/utils/hive.dart';
+import 'package:tetris/utils/hooks/cubit_hook.dart';
+
+final _mainRouter = MainRouter();
 
 class App extends HookWidget {
-  const App({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Tetris',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    final cubit = useCubit<AppCubit>();
+
+    useCubitListener<AppCubit, AppState>(cubit,
+        listener: _cubitStateListener, listenWhen: _listenWhen);
+
+    useEffect(() {
+      cubit.init();
+
+      return () {
+        closeHive();
+      };
+    }, [cubit]);
+
+    return MaterialApp.router(
+      color: Colors.red,
+      routerDelegate: _mainRouter.delegate(),
+      routeInformationParser: _mainRouter.defaultRouteParser(),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  bool _listenWhen(AppState state) => state is! AppStateIdle;
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+  void _cubitStateListener(
+    AppCubit cubit,
+    AppState state,
+    BuildContext context,
+  ) {
+    state.maybeWhen(
+      orElse: () {},
     );
   }
 }
