@@ -16,8 +16,7 @@ class MenuLoadedWidget extends HookWidget {
         children: [
           const Expanded(
             flex: 2,
-            child: Padding(
-              padding: EdgeInsets.only(top: 45.0),
+            child: Center(
               child: Text(
                 "TETRIS",
                 style: AppTypography.menuHeaderText,
