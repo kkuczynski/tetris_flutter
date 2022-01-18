@@ -16,4 +16,10 @@ class AppTypography {
     color: customWhite,
     fontSize: 80,
   );
+  static const TextStyle gameInfoText = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w400,
+    color: customWhite,
+    fontSize: 24,
+  );
 }

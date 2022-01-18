@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:tetris/presentation/pages/entry/entry_page.dart';
+import 'package:tetris/presentation/pages/game/game_page.dart';
 import 'package:tetris/presentation/pages/menu/menu_page.dart';
 
 @AdaptiveAutoRouter(
@@ -13,6 +14,10 @@ import 'package:tetris/presentation/pages/menu/menu_page.dart';
     AdaptiveRoute(
       path: '/menu',
       page: MenuPage,
+    ),
+    AdaptiveRoute(
+      path: '/game',
+      page: GamePage,
     ),
   ],
 )

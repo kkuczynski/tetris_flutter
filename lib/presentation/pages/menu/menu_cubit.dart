@@ -8,6 +8,15 @@ class MenuCubit extends Cubit<MenuState> {
   MenuCubit() : super(MenuState.idle());
 
   Future<void> init() async {
-    emit(MenuState.loaded());
+    emit(const MenuState.loaded());
+  }
+
+  Future<void> quitPressed() async {
+    emit(const MenuState.quit());
+  }
+
+  Future<void> newGamePressed() async {
+    emit(const MenuState.newGame());
+    emit(const MenuState.dump());
   }
 }
