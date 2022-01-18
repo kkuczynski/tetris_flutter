@@ -42,6 +42,7 @@ class JButtonShape extends ButtonShape {
           key: key,
           availableWidth: availableWidth,
         );
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -89,6 +90,7 @@ class AButtonShape extends ButtonShape {
           key: key,
           availableWidth: availableWidth,
         );
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -136,6 +138,7 @@ class OButtonShape extends ButtonShape {
           key: key,
           availableWidth: availableWidth,
         );
+
   @override
   Widget build(BuildContext context) {
     return Column(

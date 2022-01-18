@@ -25,6 +25,7 @@ class MenuButtonWidget extends StatelessWidget {
         return Container();
       }
     }
+
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,
@@ -64,17 +65,12 @@ class MenuButtonWidget extends StatelessWidget {
                       : _availableWidth,
               height: shape > 0 ? _availableHeight * 2 : _availableHeight,
               child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 15.0,
+                padding: EdgeInsets.only(
+                  top: shape == 2 ? _availableHeight : 0.0,
+                  bottom: shape == 1 ? _availableHeight : 0.0,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: shape == 2
-                        ? _availableHeight
-                        : shape == 3
-                            ? _availableHeight / 2
-                            : 0.0,
-                  ),
+                child: Align(
+                  alignment: Alignment.center,
                   child: Text(
                     buttonText,
                     style: AppTypography.menuButtonText,
