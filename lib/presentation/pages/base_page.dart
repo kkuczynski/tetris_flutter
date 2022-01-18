@@ -7,6 +7,7 @@ abstract class BasePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: buildContent(context),
       ),

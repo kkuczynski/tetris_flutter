@@ -21,6 +21,7 @@ Future<void> main() async {
     SystemUiOverlay.bottom,
     SystemUiOverlay.top,
   ]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
   runApp(
     App(),

@@ -1,11 +1,15 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tetris/presentation/pages/base_page.dart';
 import 'package:tetris/presentation/pages/entry/entry_cubit.dart';
 import 'package:tetris/presentation/pages/entry/widgets/entry_loaded_widget.dart';
+import 'package:tetris/presentation/router/main_router.gr.dart';
 import 'package:tetris/utils/hooks/cubit_hook.dart';
 
 class EntryPage extends BasePage {
+  const EntryPage({Key? key}) : super(key: key);
+
   @override
   Widget buildContent(BuildContext context) {
     final cubit = useCubit<EntryCubit>();
@@ -24,7 +28,7 @@ class EntryPage extends BasePage {
     final state = useCubitBuilder(cubit, buildWhen: _buildWhen);
 
     return state.maybeWhen(
-      idle: () => EntryLoadedWidget(),
+      idle: () => const EntryLoadedWidget(),
       orElse: () => Container(),
     );
   }
@@ -37,6 +41,7 @@ class EntryPage extends BasePage {
   void _cubitStateListener(
       EntryCubit cubit, EntryState state, BuildContext context) {
     state.maybeWhen(
+      loaded: () => context.router.popAndPush(const MenuPageRoute()),
       orElse: () {},
     );
   }
