@@ -17,10 +17,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [
-    SystemUiOverlay.bottom,
-    SystemUiOverlay.top,
-  ]);
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
   runApp(
