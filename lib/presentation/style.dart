@@ -6,5 +6,6 @@ const Color semiTransparentGrey = Color(0x55888888);
 const Color pink = Color(0xCCFADADD);
 const Color yellow = Color(0xFFFFFCC9);
 const Color purple = Color(0xFFB19CD9);
-const Color green = Color(0xFFAAFF80);
+const Color green = Color(0xCCAAFFAA);
 const Color customWhite = Color(0xDDFFFFFF);
+const Color brown = Color(0xFF836853);

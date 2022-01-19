@@ -7,7 +7,17 @@ class GameCubeWidget extends HookWidget {
   final int y;
   final int x;
   final double size;
-  List<Color> colors = [black, cyan, purple, pink, yellow, green, customWhite];
+  List<Color> colors = [
+    black,
+    cyan,
+    purple,
+    pink,
+    yellow,
+    green,
+    brown,
+    customWhite,
+  ];
+
   GameCubeWidget({
     Key? key,
     required this.x,

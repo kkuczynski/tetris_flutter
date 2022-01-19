@@ -10,18 +10,35 @@ class GameLoadedWidget extends HookWidget {
   GameLoadedWidget({
     Key? key,
     required this.gameCubit,
-  }) : super(key: key);
+  }) : super(key: key) {
+    run();
+  }
 
   final GameCubit gameCubit;
   final ValueNotifier<int> score = useState(0);
   List<GameCubeWidget> gameGrid = [];
   bool running = false;
-
+  Timer? _timer;
+  List<int> colors = [];
   void updateColors() {
-    List<int> colors = gameCubit.getCubeColors();
-    for (int i = 0; i < gameGrid.length; i++) {
-      gameGrid[i].color.value = colors[i];
+    colors = gameCubit.getCubeColors();
+    int i = 0;
+    for (var element in colors) {
+      gameGrid[i].color.value = element;
+      i++;
     }
+  }
+
+  void run() {
+    const duration = Duration(milliseconds: 400);
+
+    _timer?.cancel();
+    _timer = Timer.periodic(duration, (Timer timer) {
+      gameCubit.proceedGame();
+      score.value = gameCubit.getScore();
+      updateColors();
+      return timer.cancel();
+    });
   }
 
   @override
@@ -48,39 +65,57 @@ class GameLoadedWidget extends HookWidget {
       }
     }
 
-    const duration = Duration(milliseconds: 400);
-    if (!running) {
-      running = true;
-      Timer.periodic(duration, (Timer timer) {
-        gameCubit.proceedGame();
-        score.value = gameCubit.getScore();
-        updateColors();
-        return timer.cancel();
-      });
-    }
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text(
-              "SCORE: " + score.value.toString(),
-              style: AppTypography.gameInfoText,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Text(
+                  "SCORE: " + score.value.toString(),
+                  style: AppTypography.gameInfoText,
+                ),
+              ),
             ),
-          ),
+            SizedBox(
+              height: _availableHeight,
+              width: _availableWidth,
+              child: GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 10,
+                children: gameGrid,
+              ),
+            ),
+          ],
         ),
-        SizedBox(
-          height: _availableHeight,
-          width: _availableWidth,
-          child: GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 10,
-            children: gameGrid,
-          ),
-        ),
+        Flex(
+          direction: Axis.horizontal,
+          children: [
+            Expanded(
+              flex: 1,
+              child: GestureDetector(
+                  onTap: () async => {
+                        gameCubit.moveLeft(),
+                        updateColors(),
+                      }),
+            ),
+            Expanded(
+              flex: 1,
+              child: GestureDetector(onTap: () => {}),
+            ),
+            Expanded(
+              flex: 1,
+              child: GestureDetector(
+                  onTap: () async => {
+                        gameCubit.moveRight(),
+                        updateColors(),
+                      }),
+            ),
+          ],
+        )
       ],
     );
   }
