@@ -104,7 +104,11 @@ class GameLoadedWidget extends HookWidget {
             ),
             Expanded(
               flex: 1,
-              child: GestureDetector(onTap: () => {}),
+              child: GestureDetector(
+                  onTap: () async => {
+                        gameCubit.rotate(),
+                        updateColors(),
+                      }),
             ),
             Expanded(
               flex: 1,
