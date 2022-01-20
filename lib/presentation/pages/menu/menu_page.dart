@@ -28,8 +28,9 @@ class MenuPage extends BasePage {
     final state = useCubitBuilder(cubit, buildWhen: _buildWhen);
 
     return state.maybeWhen(
-      loaded: () => MenuLoadedWidget(
+      loaded: (gameData) => MenuLoadedWidget(
         menuCubit: cubit,
+        gameData: gameData,
       ),
       orElse: () => Container(),
     );
@@ -43,7 +44,14 @@ class MenuPage extends BasePage {
       MenuCubit cubit, MenuState state, BuildContext context) {
     state.maybeWhen(
       tips: () => context.router.push(const TipsPageRoute()),
-      newGame: () => context.router.push(GamePageRoute(isNewGame: true)),
+      newGame: () async => {
+        await context.router.push(GamePageRoute(isNewGame: true)),
+        cubit.reload(),
+      },
+      continueGame: () async => {
+        await context.router.push(GamePageRoute(isNewGame: false)),
+        cubit.reload(),
+      },
       orElse: () {},
     );
   }

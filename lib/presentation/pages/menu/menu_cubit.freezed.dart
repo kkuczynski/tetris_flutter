@@ -21,8 +21,10 @@ class _$MenuStateTearOff {
     return const MenuStateIdle();
   }
 
-  MenuStateLoaded loaded() {
-    return const MenuStateLoaded();
+  MenuStateLoaded loaded(GameData? gameData) {
+    return MenuStateLoaded(
+      gameData,
+    );
   }
 
   MenuStateNewGame newGame() {
@@ -54,7 +56,7 @@ mixin _$MenuState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -65,7 +67,7 @@ mixin _$MenuState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -76,7 +78,7 @@ mixin _$MenuState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -176,7 +178,7 @@ class _$MenuStateIdle implements MenuStateIdle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -190,7 +192,7 @@ class _$MenuStateIdle implements MenuStateIdle {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -204,7 +206,7 @@ class _$MenuStateIdle implements MenuStateIdle {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -274,6 +276,7 @@ abstract class $MenuStateLoadedCopyWith<$Res> {
   factory $MenuStateLoadedCopyWith(
           MenuStateLoaded value, $Res Function(MenuStateLoaded) then) =
       _$MenuStateLoadedCopyWithImpl<$Res>;
+  $Res call({GameData? gameData});
 }
 
 /// @nodoc
@@ -285,59 +288,84 @@ class _$MenuStateLoadedCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
 
   @override
   MenuStateLoaded get _value => super._value as MenuStateLoaded;
+
+  @override
+  $Res call({
+    Object? gameData = freezed,
+  }) {
+    return _then(MenuStateLoaded(
+      gameData == freezed
+          ? _value.gameData
+          : gameData // ignore: cast_nullable_to_non_nullable
+              as GameData?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$MenuStateLoaded implements MenuStateLoaded {
-  const _$MenuStateLoaded();
+  const _$MenuStateLoaded(this.gameData);
+
+  @override
+  final GameData? gameData;
 
   @override
   String toString() {
-    return 'MenuState.loaded()';
+    return 'MenuState.loaded(gameData: $gameData)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is MenuStateLoaded);
+    return identical(this, other) ||
+        (other is MenuStateLoaded &&
+            (identical(other.gameData, gameData) ||
+                const DeepCollectionEquality()
+                    .equals(other.gameData, gameData)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(gameData);
+
+  @JsonKey(ignore: true)
+  @override
+  $MenuStateLoadedCopyWith<MenuStateLoaded> get copyWith =>
+      _$MenuStateLoadedCopyWithImpl<MenuStateLoaded>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
     required TResult Function() tips,
     required TResult Function() dump,
   }) {
-    return loaded();
+    return loaded(gameData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
     TResult Function()? tips,
     TResult Function()? dump,
   }) {
-    return loaded?.call();
+    return loaded?.call(gameData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -346,7 +374,7 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(gameData);
     }
     return orElse();
   }
@@ -399,7 +427,12 @@ class _$MenuStateLoaded implements MenuStateLoaded {
 }
 
 abstract class MenuStateLoaded implements MenuState {
-  const factory MenuStateLoaded() = _$MenuStateLoaded;
+  const factory MenuStateLoaded(GameData? gameData) = _$MenuStateLoaded;
+
+  GameData? get gameData => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MenuStateLoadedCopyWith<MenuStateLoaded> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -442,7 +475,7 @@ class _$MenuStateNewGame implements MenuStateNewGame {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -456,7 +489,7 @@ class _$MenuStateNewGame implements MenuStateNewGame {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -470,7 +503,7 @@ class _$MenuStateNewGame implements MenuStateNewGame {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -576,7 +609,7 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -590,7 +623,7 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -604,7 +637,7 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -710,7 +743,7 @@ class _$MenuStateHighScores implements MenuStateHighScores {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -724,7 +757,7 @@ class _$MenuStateHighScores implements MenuStateHighScores {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -738,7 +771,7 @@ class _$MenuStateHighScores implements MenuStateHighScores {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -843,7 +876,7 @@ class _$MenuStateTips implements MenuStateTips {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -857,7 +890,7 @@ class _$MenuStateTips implements MenuStateTips {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -871,7 +904,7 @@ class _$MenuStateTips implements MenuStateTips {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -976,7 +1009,7 @@ class _$MenuStateDump implements MenuStateDump {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() loaded,
+    required TResult Function(GameData? gameData) loaded,
     required TResult Function() newGame,
     required TResult Function() continueGame,
     required TResult Function() highScores,
@@ -990,7 +1023,7 @@ class _$MenuStateDump implements MenuStateDump {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,
@@ -1004,7 +1037,7 @@ class _$MenuStateDump implements MenuStateDump {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? loaded,
+    TResult Function(GameData? gameData)? loaded,
     TResult Function()? newGame,
     TResult Function()? continueGame,
     TResult Function()? highScores,

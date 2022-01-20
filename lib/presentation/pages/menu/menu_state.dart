@@ -4,7 +4,7 @@ part of 'menu_cubit.dart';
 abstract class MenuState with _$MenuState {
   const factory MenuState.idle() = MenuStateIdle;
 
-  const factory MenuState.loaded() = MenuStateLoaded;
+  const factory MenuState.loaded(GameData? gameData) = MenuStateLoaded;
 
   const factory MenuState.newGame() = MenuStateNewGame;
 

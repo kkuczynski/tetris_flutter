@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:tetris/data/models/game_data.dart';
 import 'package:tetris/presentation/pages/menu/menu_cubit.dart';
 import 'package:tetris/presentation/pages/menu/widgets/menu_button_widget.dart';
 import 'package:tetris/presentation/pages/menu/widgets/menu_title_widget.dart';
 
 class MenuLoadedWidget extends HookWidget {
-  const MenuLoadedWidget({
+  MenuLoadedWidget({
     Key? key,
     required this.menuCubit,
+    required this.gameData,
   }) : super(key: key);
 
   final MenuCubit menuCubit;
-
+  final GameData? gameData;
   @override
   Widget build(BuildContext context) {
     ValueNotifier<bool> showContinueGame = useState(false);
+    if (gameData != null) {
+      if (gameData!.gameFinished == false) {
+        showContinueGame.value = true;
+      }
+    }
 
     return Padding(
       padding: const EdgeInsets.all(30.0),
@@ -34,7 +41,7 @@ class MenuLoadedWidget extends HookWidget {
               children: [
                 MenuButtonWidget(
                   shape: 0,
-                  onPressed: () {},
+                  onPressed: () => menuCubit.continueGamePressed(),
                   buttonText: "CONTINUE GAME",
                   visible: showContinueGame,
                 ),

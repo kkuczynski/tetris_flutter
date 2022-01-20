@@ -9,7 +9,12 @@ Future<void> registerCubit(GetIt getIt) async {
   getIt
     ..registerFactory(() => AppCubit())
     ..registerFactory(() => EntryCubit())
-    ..registerFactory(() => MenuCubit())
-    ..registerFactory(() => GameCubit())
+    ..registerFactory(() => MenuCubit(
+          getIt(),
+        ))
+    ..registerFactory(() => GameCubit(
+          getIt(),
+          getIt(),
+        ))
     ..registerFactory(() => TipsCubit());
 }

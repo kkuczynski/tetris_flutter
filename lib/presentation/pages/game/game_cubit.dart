@@ -4,20 +4,27 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tetris/data/models/game_data.dart';
+import 'package:tetris/use_case/game_data/get_game_data_use_case.dart';
+import 'package:tetris/use_case/game_data/put_game_data_use_case.dart';
 
 part 'game_cubit.freezed.dart';
 part 'game_state.dart';
 
 class GameCubit extends Cubit<GameState> {
-  GameCubit() : super(GameState.idle());
+  GameCubit(this.putGameDataUseCase, this.getGameDataUseCase)
+      : super(GameState.idle());
 
   Future<void> init({required bool isNewGame}) async {
     if (isNewGame) {
       _initGameData(null);
+    } else {
+      _gameData = await getGameDataUseCase.call();
     }
     emit(GameState.loaded());
   }
 
+  GetGameDataUseCase getGameDataUseCase;
+  PutGameDataUseCase putGameDataUseCase;
   GameData? _gameData;
 
   void _initGameData(GameData? savedGameData) {
@@ -47,13 +54,19 @@ class GameCubit extends Cubit<GameState> {
       _gameData!.currentTetro = _generateTetro();
       if (_canSpawn()) {
         _spawnTetro();
+        _gameData!.gameFinished = false;
+        putGameDataUseCase.call(_gameData!);
         return false;
       } else {
         _spawnTetro();
         _gameData!.gameFinished = true;
+        putGameDataUseCase.call(_gameData!);
         return false;
       }
     } else {
+      _gameData!.gameFinished = false;
+      putGameDataUseCase.call(_gameData!);
+
       return _gravity();
     }
   }
@@ -122,6 +135,7 @@ class GameCubit extends Cubit<GameState> {
     } catch (e) {
       _gameData!.dynamicGameArray = tmpDynamicGameArray;
     }
+    putGameDataUseCase.call(_gameData!);
   }
 
   void _moveTo0x0() {
@@ -220,6 +234,7 @@ class GameCubit extends Cubit<GameState> {
         }
       }
     }
+    putGameDataUseCase.call(_gameData!);
   }
 
   void moveLeft() async {
@@ -237,6 +252,7 @@ class GameCubit extends Cubit<GameState> {
         }
       }
     }
+    putGameDataUseCase.call(_gameData!);
   }
 
   bool _canMoveDown() {
@@ -322,6 +338,7 @@ class GameCubit extends Cubit<GameState> {
       }
     }
     _gameData!.score += destroyedRowsCount * destroyedRowsCount * 100;
+    putGameDataUseCase.call(_gameData!);
   }
 
   _fallRows(int y) {
