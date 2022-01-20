@@ -11,39 +11,45 @@ class GameLoadedWidget extends HookWidget {
     Key? key,
     required this.gameCubit,
   }) : super(key: key) {
-    run();
+    _run();
   }
 
   final GameCubit gameCubit;
   final ValueNotifier<int> score = useState(0);
-  List<GameCubeWidget> gameGrid = [];
-  bool running = false;
+  final ValueNotifier<int> frames = useState(0);
+  final List<GameCubeWidget> _gameGrid = [];
   Timer? _timer;
-  int time = 300;
-  List<int> colors = [];
-  Duration? duration;
-  final int swipeSensitivity = 12;
-  bool isSkipping = false;
+  final int _time = 10;
+  List<int> _colors = [];
+  Duration? _duration;
+  final int _swipeSensitivity = 12;
+  bool _isSkipping = false;
 
   void updateColors() {
-    colors = gameCubit.getCubeColors();
+    _colors = gameCubit.getCubeColors();
     int i = 0;
-    for (var element in colors) {
-      gameGrid[i].color.value = element;
+    for (var element in _colors) {
+      _gameGrid[i].color.value = element;
       i++;
     }
   }
 
-  void run() {
-    duration = Duration(milliseconds: time);
+  void _run() {
+    _duration = Duration(milliseconds: _time);
 
     _timer?.cancel();
-    _timer = Timer.periodic(duration!, (Timer timer) {
-      if (gameCubit.proceedGame()) {
-        isSkipping = false;
+    _timer = Timer.periodic(_duration!, (Timer timer) {
+      if (frames.value % 15 == 0) {
+        gameCubit.proceedGame();
+        score.value = gameCubit.getScore();
       }
-      score.value = gameCubit.getScore();
+      if (_isSkipping) {
+        if (!gameCubit.proceedGame()) {
+          _isSkipping = false;
+        }
+      }
       updateColors();
+      frames.value++;
       return timer.cancel();
     });
   }
@@ -62,7 +68,7 @@ class GameLoadedWidget extends HookWidget {
 
     for (int x = 0; x < 10; x++) {
       for (int y = 0; y < 20; y++) {
-        gameGrid.add(
+        _gameGrid.add(
           GameCubeWidget(
             x: x,
             y: y,
@@ -81,9 +87,14 @@ class GameLoadedWidget extends HookWidget {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text(
-                  "SCORE: " + score.value.toString(),
-                  style: AppTypography.gameInfoText,
+                child: Row(
+                  children: [
+                    Text(
+                      "SCORE: " + score.value.toString(),
+                      style: AppTypography.gameInfoText,
+                    ),
+                    Text(frames.value.toString())
+                  ],
                 ),
               ),
             ),
@@ -93,7 +104,7 @@ class GameLoadedWidget extends HookWidget {
               child: GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 10,
-                children: gameGrid,
+                children: _gameGrid,
               ),
             ),
           ],
@@ -118,9 +129,9 @@ class GameLoadedWidget extends HookWidget {
                   updateColors(),
                 },
                 onVerticalDragUpdate: (details) => {
-                  if (details.delta.dy > swipeSensitivity)
+                  if (details.delta.dy > _swipeSensitivity)
                     {
-                      gameCubit.skip(),
+                      _isSkipping = true,
                     },
                 },
               ),

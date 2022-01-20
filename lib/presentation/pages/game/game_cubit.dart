@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tetris/data/models/game_data.dart';
 
 part 'game_cubit.freezed.dart';
 part 'game_state.dart';
@@ -12,148 +13,169 @@ class GameCubit extends Cubit<GameState> {
 
   Future<void> init({required bool isNewGame}) async {
     if (isNewGame) {
-      initGameArray();
+      _initGameData(null);
     }
     emit(GameState.loaded());
   }
 
-  int score = 0;
-  List<List<int>> dynamicGameArray = [];
-  List<List<int>> staticGameArray = [];
-  List<List<int>>? currentTetro = [];
-  int activeTetro = 0;
-  bool gameFinished = false;
-  List<int> tetroBeginXY = [0, 0];
+  GameData? _gameData;
 
-  void initGameArray() {
+  void _initGameData(GameData? savedGameData) {
+    if (savedGameData == null) {
+      _gameData = GameData(
+        score: 0,
+        dynamicGameArray: [],
+        staticGameArray: [],
+        currentTetro: [],
+        activeTetro: 0,
+        gameFinished: false,
+        tetroBeginXY: [0, 0],
+      );
+      _initGameArray();
+    }
+  }
+
+  void _initGameArray() {
     for (int i = 0; i < 20; i++) {
-      staticGameArray.add([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-      dynamicGameArray.add([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      _gameData!.staticGameArray.add([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      _gameData!.dynamicGameArray.add([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     }
   }
 
   bool proceedGame() {
-    if (activeTetro == 0 && !gameFinished) {
-      currentTetro = generateTetro();
-      if (canSpawn()) {
-        spawnTetro();
-        return true;
+    if (_gameData!.activeTetro == 0 && !_gameData!.gameFinished) {
+      _gameData!.currentTetro = _generateTetro();
+      if (_canSpawn()) {
+        _spawnTetro();
+        return false;
       } else {
-        gameFinished = true;
-        return true;
+        _spawnTetro();
+        _gameData!.gameFinished = true;
+        return false;
       }
     } else {
-      gravity();
-      return false;
+      return _gravity();
     }
   }
 
-  bool gravity() {
-    if (canMoveDown()) {
-      tetroBeginXY.last += 1;
+  bool _gravity() {
+    if (_canMoveDown()) {
+      _gameData!.tetroBeginXY.last += 1;
       for (int y = 19; y >= 0; y--) {
         for (int x = 0; x < 10; x++) {
-          if (dynamicGameArray[y][x] > 0) {
-            dynamicGameArray[y + 1][x] = dynamicGameArray[y][x];
-            dynamicGameArray[y][x] = 0;
+          if (_gameData!.dynamicGameArray[y][x] > 0) {
+            _gameData!.dynamicGameArray[y + 1][x] =
+                _gameData!.dynamicGameArray[y][x];
+            _gameData!.dynamicGameArray[y][x] = 0;
           }
         }
       }
     } else {
       for (int y = 0; y < 20; y++) {
         for (int x = 0; x < 10; x++) {
-          if (dynamicGameArray[y][x] > 0) {
-            staticGameArray[y][x] = dynamicGameArray[y][x];
-            dynamicGameArray[y][x] = 0;
+          if (_gameData!.dynamicGameArray[y][x] > 0) {
+            _gameData!.staticGameArray[y][x] =
+                _gameData!.dynamicGameArray[y][x];
+            _gameData!.dynamicGameArray[y][x] = 0;
           }
         }
       }
-      currentTetro = [];
-      activeTetro = 0;
+      _checkAllRows();
+      _gameData!.currentTetro = [];
+      _gameData!.activeTetro = 0;
       return false;
     }
     return true;
   }
 
-  rotate() {
-    List<List<int>> tmpDynamicGameArray = dynamicGameArray;
+  void rotate() {
+    List<List<int>> tmpDynamicGameArray = _gameData!.dynamicGameArray;
     try {
       int size = 3;
-      if (activeTetro > 0 && activeTetro != 5) {
-        if (activeTetro == 1) {
+      if (_gameData!.activeTetro > 0 && _gameData!.activeTetro != 5) {
+        if (_gameData!.activeTetro == 1) {
           size = 4;
         }
 
-        moveTo0x0();
+        _moveTo0x0();
 
         for (int i = 0; i < size; i++) {
-          reverse(dynamicGameArray[i], 0, size);
+          reverse(_gameData!.dynamicGameArray[i], 0, size);
         }
 
         for (int i = 0; i < size; i++) {
           for (int j = i; j < size; j++) {
-            int tmpSwap = dynamicGameArray[i][j];
-            dynamicGameArray[i][j] = dynamicGameArray[j][i];
-            dynamicGameArray[j][i] = tmpSwap;
+            int tmpSwap = _gameData!.dynamicGameArray[i][j];
+            _gameData!.dynamicGameArray[i][j] =
+                _gameData!.dynamicGameArray[j][i];
+            _gameData!.dynamicGameArray[j][i] = tmpSwap;
           }
         }
 
-        if (!moveBackFrom0x0()) {
-          dynamicGameArray = tmpDynamicGameArray;
+        if (!_moveBackFrom0x0()) {
+          _gameData!.dynamicGameArray = tmpDynamicGameArray;
         }
-        if (tetroBroke(tmpDynamicGameArray)) {
-          dynamicGameArray = tmpDynamicGameArray;
+        if (_tetroBroke(tmpDynamicGameArray)) {
+          _gameData!.dynamicGameArray = tmpDynamicGameArray;
         }
       }
     } catch (e) {
-      dynamicGameArray = tmpDynamicGameArray;
+      _gameData!.dynamicGameArray = tmpDynamicGameArray;
     }
   }
 
-  void moveTo0x0() {
+  void _moveTo0x0() {
     for (int y = 0; y < 20; y++) {
       for (int x = 0; x < 10; x++) {
-        if (dynamicGameArray[y][x] > 0) {
-          dynamicGameArray[y - tetroBeginXY.last][x - tetroBeginXY.first] =
-              dynamicGameArray[y][x];
-          dynamicGameArray[y][x] = 0;
+        if (_gameData!.dynamicGameArray[y][x] > 0) {
+          _gameData!.dynamicGameArray[y - _gameData!.tetroBeginXY.last]
+                  [x - _gameData!.tetroBeginXY.first] =
+              _gameData!.dynamicGameArray[y][x];
+          _gameData!.dynamicGameArray[y][x] = 0;
         }
       }
     }
   }
 
-  bool moveBackFrom0x0() {
+  bool _moveBackFrom0x0() {
     for (int y = 3; y >= 0; y--) {
-      if (dynamicGameArray[y][0] > 0 && tetroBeginXY.first < 0) {
-        tetroBeginXY.first = 0;
-      } else if (dynamicGameArray[y][1] > 0 && tetroBeginXY.first < -1) {
-        tetroBeginXY.first = 0;
-      } else if (dynamicGameArray[y][3] > 0 && tetroBeginXY.first > 6) {
-        tetroBeginXY.first = 6;
-      } else if (dynamicGameArray[y][2] > 0 && tetroBeginXY.first > 7) {
-        tetroBeginXY.first = 7;
+      if (_gameData!.dynamicGameArray[y][0] > 0 &&
+          _gameData!.tetroBeginXY.first < 0) {
+        _gameData!.tetroBeginXY.first = 0;
+      } else if (_gameData!.dynamicGameArray[y][1] > 0 &&
+          _gameData!.tetroBeginXY.first < -1) {
+        _gameData!.tetroBeginXY.first = 0;
+      } else if (_gameData!.dynamicGameArray[y][3] > 0 &&
+          _gameData!.tetroBeginXY.first > 6) {
+        _gameData!.tetroBeginXY.first = 6;
+      } else if (_gameData!.dynamicGameArray[y][2] > 0 &&
+          _gameData!.tetroBeginXY.first > 7) {
+        _gameData!.tetroBeginXY.first = 7;
       }
     }
     for (int y = 3; y >= 0; y--) {
       for (int x = 3; x >= 0; x--) {
-        if (dynamicGameArray[y][x] > 0) {
-          dynamicGameArray[y + tetroBeginXY.last][x + tetroBeginXY.first] =
-              dynamicGameArray[y][x];
+        if (_gameData!.dynamicGameArray[y][x] > 0) {
+          _gameData!.dynamicGameArray[y + _gameData!.tetroBeginXY.last]
+                  [x + _gameData!.tetroBeginXY.first] =
+              _gameData!.dynamicGameArray[y][x];
 
-          if (dynamicGameArray[y + tetroBeginXY.last][x + tetroBeginXY.first] >
+          if (_gameData!.dynamicGameArray[y + _gameData!.tetroBeginXY.last]
+                      [x + _gameData!.tetroBeginXY.first] >
                   0 &&
-              staticGameArray[y + tetroBeginXY.last][x + tetroBeginXY.first] >
+              _gameData!.staticGameArray[y + _gameData!.tetroBeginXY.last]
+                      [x + _gameData!.tetroBeginXY.first] >
                   0) {
             return false;
           }
-          dynamicGameArray[y][x] = 0;
+          _gameData!.dynamicGameArray[y][x] = 0;
         }
       }
     }
     return true;
   }
 
-  bool tetroBroke(List<List<int>> tmpDynamicGameArray) {
+  bool _tetroBroke(List<List<int>> tmpDynamicGameArray) {
     List<int> oldArrayX = [];
     List<int> newArrayX = [];
     List<int> oldArrayY = [];
@@ -164,7 +186,7 @@ class GameCubit extends Cubit<GameState> {
           oldArrayX.add(x);
           oldArrayY.add(y);
         }
-        if (dynamicGameArray[y][x] > 0) {
+        if (_gameData!.dynamicGameArray[y][x] > 0) {
           newArrayX.add(x);
           newArrayY.add(y);
         }
@@ -184,13 +206,16 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void moveRight() async {
-    if (canMoveHorizontally(1) && !gameFinished && activeTetro > 0) {
-      tetroBeginXY.first += 1;
+    if (_canMoveHorizontally(1) &&
+        !_gameData!.gameFinished &&
+        _gameData!.activeTetro > 0) {
+      _gameData!.tetroBeginXY.first += 1;
       for (int y = 0; y < 20; y++) {
         for (int x = 8; x >= 0; x--) {
-          if (dynamicGameArray[y][x] > 0) {
-            dynamicGameArray[y][x + 1] = dynamicGameArray[y][x];
-            dynamicGameArray[y][x] = 0;
+          if (_gameData!.dynamicGameArray[y][x] > 0) {
+            _gameData!.dynamicGameArray[y][x + 1] =
+                _gameData!.dynamicGameArray[y][x];
+            _gameData!.dynamicGameArray[y][x] = 0;
           }
         }
       }
@@ -198,47 +223,32 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void moveLeft() async {
-    if (canMoveHorizontally(-1) && !gameFinished && activeTetro > 0) {
-      tetroBeginXY.first -= 1;
+    if (_canMoveHorizontally(-1) &&
+        !_gameData!.gameFinished &&
+        _gameData!.activeTetro > 0) {
+      _gameData!.tetroBeginXY.first -= 1;
       for (int y = 0; y < 20; y++) {
         for (int x = 1; x < 10; x++) {
-          if (dynamicGameArray[y][x] > 0) {
-            dynamicGameArray[y][x - 1] = dynamicGameArray[y][x];
-            dynamicGameArray[y][x] = 0;
+          if (_gameData!.dynamicGameArray[y][x] > 0) {
+            _gameData!.dynamicGameArray[y][x - 1] =
+                _gameData!.dynamicGameArray[y][x];
+            _gameData!.dynamicGameArray[y][x] = 0;
           }
         }
       }
     }
   }
 
-  int rotateWithoutBreaking() {
-    if (dynamicGameArray[2][0] > 0 || dynamicGameArray[3][0] > 0) {
-      return 1;
-    } else if (dynamicGameArray[0][2] > 0 || dynamicGameArray[1][2] > 0) {
-      return -1;
-    } else {
-      return 0;
-    }
-  }
-
-  void skip() {
-    while (activeTetro > 0) {
-      if (!gravity()) {
-        return;
-      }
-    }
-  }
-
-  bool canMoveDown() {
-    for (int element in dynamicGameArray.last) {
+  bool _canMoveDown() {
+    for (int element in _gameData!.dynamicGameArray.last) {
       if (element > 0) {
         return false;
       }
     }
     for (int y = 0; y < 19; y++) {
       for (int x = 0; x < 10; x++) {
-        if (dynamicGameArray[y][x] > 0) {
-          if (staticGameArray[y + 1][x] > 0) {
+        if (_gameData!.dynamicGameArray[y][x] > 0) {
+          if (_gameData!.staticGameArray[y + 1][x] > 0) {
             return false;
           }
         }
@@ -247,13 +257,13 @@ class GameCubit extends Cubit<GameState> {
     return true;
   }
 
-  bool canMoveHorizontally(int offset) {
+  bool _canMoveHorizontally(int offset) {
     for (int y = 0; y < 20; y++) {
       for (int x = 0; x < 10; x++) {
-        if (dynamicGameArray[y][x] > 0) {
+        if (_gameData!.dynamicGameArray[y][x] > 0) {
           if (x + offset >= 10 || x + offset < 0) {
             return false;
-          } else if (staticGameArray[y][x + offset] > 0) {
+          } else if (_gameData!.staticGameArray[y][x + offset] > 0) {
             return false;
           }
         }
@@ -262,11 +272,11 @@ class GameCubit extends Cubit<GameState> {
     return true;
   }
 
-  bool canSpawn() {
+  bool _canSpawn() {
     for (int y = 0; y < 4; y++) {
       for (int x = 0; x < 4; x++) {
-        if (currentTetro![y][x] > 0) {
-          if (staticGameArray[y][x + 3] > 0) {
+        if (_gameData!.currentTetro![y][x] > 0) {
+          if (_gameData!.staticGameArray[y][x + 3] > 0) {
             return false;
           }
         }
@@ -275,65 +285,87 @@ class GameCubit extends Cubit<GameState> {
     return true;
   }
 
-  void spawnTetro() {
-    tetroBeginXY = [3, 0];
+  void _spawnTetro() {
+    _gameData!.tetroBeginXY = [3, 0];
     for (int y = 0; y < 4; y++) {
       for (int x = 0; x < 4; x++) {
-        dynamicGameArray[y][x + 3] = currentTetro![y][x];
+        _gameData!.dynamicGameArray[y][x + 3] = _gameData!.currentTetro![y][x];
       }
     }
   }
 
   int getScore() {
-    score++;
-    return score;
+    return _gameData!.score;
   }
 
   List<int> getCubeColors() {
     List<int> colors = [];
     for (int y = 0; y < 20; y++) {
       for (int x = 0; x < 10; x++) {
-        colors.add(staticGameArray[y][x] > 0
-            ? staticGameArray[y][x]
-            : dynamicGameArray[y][x]);
+        colors.add(_gameData!.staticGameArray[y][x] > 0
+            ? _gameData!.staticGameArray[y][x]
+            : _gameData!.dynamicGameArray[y][x]);
       }
     }
     return colors;
   }
 
-  List<List<int>> generateTetro() {
+  void _checkAllRows() {
+    int destroyedRowsCount = 0;
+    for (int i = 0; i < 20; i++) {
+      if (!_gameData!.staticGameArray[i].contains(0)) {
+        destroyedRowsCount++;
+        for (int j = 0; j < 10; j++) {
+          _gameData!.staticGameArray[i][j] = 0;
+        }
+        _fallRows(i);
+      }
+    }
+    _gameData!.score += destroyedRowsCount * destroyedRowsCount * 100;
+  }
+
+  _fallRows(int y) {
+    for (int i = y; i > 0; i--) {
+      for (int j = 0; j < 10; j++) {
+        _gameData!.staticGameArray[i][j] = _gameData!.staticGameArray[i - 1][j];
+        _gameData!.staticGameArray[i - 1][j] = 0;
+      }
+    }
+  }
+
+  List<List<int>> _generateTetro() {
     Random rng = Random();
     int randomNumber = rng.nextInt(7);
-    activeTetro = randomNumber + 1;
+    _gameData!.activeTetro = randomNumber + 1;
     List<List<int>> tetro = [];
 
     switch (randomNumber) {
       case 0:
-        tetro = generateI();
+        tetro = _generateI();
         break;
       case 1:
-        tetro = generateJ();
+        tetro = _generateJ();
         break;
       case 2:
-        tetro = generateL();
+        tetro = _generateL();
         break;
       case 3:
-        tetro = generateA();
+        tetro = _generateA();
         break;
       case 4:
-        tetro = generateO();
+        tetro = _generateO();
         break;
       case 5:
-        tetro = generateS();
+        tetro = _generateS();
         break;
       case 6:
-        tetro = generateZ();
+        tetro = _generateZ();
         break;
     }
     return tetro;
   }
 
-  List<List<int>> generateI() {
+  List<List<int>> _generateI() {
     return [
       [0, 1, 0, 0],
       [0, 1, 0, 0],
@@ -342,7 +374,7 @@ class GameCubit extends Cubit<GameState> {
     ];
   }
 
-  List<List<int>> generateJ() {
+  List<List<int>> _generateJ() {
     return [
       [0, 0, 0, 0],
       [2, 2, 2, 0],
@@ -351,7 +383,7 @@ class GameCubit extends Cubit<GameState> {
     ];
   }
 
-  List<List<int>> generateL() {
+  List<List<int>> _generateL() {
     return [
       [0, 3, 0, 0],
       [0, 3, 0, 0],
@@ -360,7 +392,7 @@ class GameCubit extends Cubit<GameState> {
     ];
   }
 
-  List<List<int>> generateA() {
+  List<List<int>> _generateA() {
     return [
       [0, 4, 0, 0],
       [0, 4, 4, 0],
@@ -369,7 +401,7 @@ class GameCubit extends Cubit<GameState> {
     ];
   }
 
-  List<List<int>> generateO() {
+  List<List<int>> _generateO() {
     return [
       [0, 5, 5, 0],
       [0, 5, 5, 0],
@@ -378,7 +410,7 @@ class GameCubit extends Cubit<GameState> {
     ];
   }
 
-  List<List<int>> generateS() {
+  List<List<int>> _generateS() {
     return [
       [0, 6, 6, 0],
       [6, 6, 0, 0],
@@ -387,7 +419,7 @@ class GameCubit extends Cubit<GameState> {
     ];
   }
 
-  List<List<int>> generateZ() {
+  List<List<int>> _generateZ() {
     return [
       [0, 0, 7, 0],
       [0, 7, 7, 0],
