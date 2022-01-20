@@ -8,13 +8,13 @@ class GameCubeWidget extends HookWidget {
   final int x;
   final double size;
   List<Color> colors = [
-    black,
+    darkGrey,
     cyan,
     purple,
     pink,
     yellow,
-    green,
     brown,
+    green,
     customWhite,
   ];
 
@@ -35,7 +35,7 @@ class GameCubeWidget extends HookWidget {
           borderRadius: BorderRadius.circular(2.0),
           border: Border.all(
             width: 1.0,
-            color: semiTransparentGrey.withOpacity(0.5),
+            color: black.withOpacity(0.5),
           ),
           color: colors[color.value],
         ),

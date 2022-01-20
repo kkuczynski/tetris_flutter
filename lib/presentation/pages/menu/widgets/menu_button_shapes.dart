@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tetris/presentation/pages/menu/widgets/menu_tetro_box_widget.dart';
 import 'package:tetris/presentation/style.dart';
 
 abstract class ButtonShape extends StatelessWidget {
@@ -18,20 +19,11 @@ class HorizontalButtonShape extends ButtonShape {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List<Widget>.generate(
-        4,
-        (index) => Container(
-          width: availableWidth / 4,
-          height: availableWidth / 4,
-          decoration: BoxDecoration(
-            color: cyan,
-            border: Border.all(
-              color: semiTransparentGrey,
-              width: 2.0,
-            ),
-            borderRadius: BorderRadius.circular(3.0),
-          ),
-        ),
-      ).toList(),
+          4,
+          (index) => MenuTetroBox(
+                availableWidth: availableWidth,
+                color: cyan,
+              )).toList(),
     );
   }
 }
@@ -51,31 +43,15 @@ class JButtonShape extends ButtonShape {
           children: [
             Row(
               children: List<Widget>.generate(
-                3,
-                (index) => Container(
-                  width: availableWidth / 4,
-                  height: availableWidth / 4,
-                  decoration: BoxDecoration(
-                    color: pink,
-                    border: Border.all(
-                      color: semiTransparentGrey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                ),
-              ).toList(),
+                  3,
+                  (index) => MenuTetroBox(
+                        availableWidth: availableWidth,
+                        color: purple,
+                      )).toList(),
             ),
-            Container(
-              width: availableWidth / 4,
-              height: availableWidth / 4,
-              decoration: BoxDecoration(
-                color: pink,
-                border: Border.all(
-                  color: semiTransparentGrey,
-                  width: 2.0,
-                ),
-              ),
+            MenuTetroBox(
+              availableWidth: availableWidth,
+              color: purple,
             ),
           ],
         ),
@@ -97,31 +73,16 @@ class AButtonShape extends ButtonShape {
       children: [
         Column(
           children: [
-            Container(
-              width: availableWidth / 4,
-              height: availableWidth / 4,
-              decoration: BoxDecoration(
-                color: yellow,
-                border: Border.all(
-                  color: semiTransparentGrey,
-                  width: 2.0,
-                ),
-              ),
+            MenuTetroBox(
+              availableWidth: availableWidth,
+              color: yellow,
             ),
             Row(
               children: List<Widget>.generate(
                 3,
-                (index) => Container(
-                  width: availableWidth / 4,
-                  height: availableWidth / 4,
-                  decoration: BoxDecoration(
-                    color: yellow,
-                    border: Border.all(
-                      color: semiTransparentGrey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
+                (index) => MenuTetroBox(
+                  availableWidth: availableWidth,
+                  color: yellow,
                 ),
               ).toList(),
             ),
@@ -148,36 +109,28 @@ class OButtonShape extends ButtonShape {
             Row(
               children: List<Widget>.generate(
                 2,
-                (index) => Container(
-                  width: availableWidth / 4,
-                  height: availableWidth / 4,
-                  decoration: BoxDecoration(
-                    color: purple,
-                    border: Border.all(
-                      color: semiTransparentGrey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
+                (index) => MenuTetroBox(
+                  availableWidth: availableWidth,
+                  color: green,
                 ),
               ).toList(),
             ),
             Row(
-              children: List<Widget>.generate(
-                2,
-                (index) => Container(
+              children: [
+                SizedBox(
                   width: availableWidth / 4,
                   height: availableWidth / 4,
-                  decoration: BoxDecoration(
-                    color: purple,
-                    border: Border.all(
-                      color: semiTransparentGrey,
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
                 ),
-              ).toList(),
+                Row(
+                  children: List<Widget>.generate(
+                    2,
+                    (index) => MenuTetroBox(
+                      availableWidth: availableWidth,
+                      color: green,
+                    ),
+                  ).toList(),
+                ),
+              ],
             ),
           ],
         ),

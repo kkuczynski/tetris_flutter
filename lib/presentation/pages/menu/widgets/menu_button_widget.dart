@@ -57,17 +57,14 @@ class MenuButtonWidget extends StatelessWidget {
             ),
           GestureDetector(
             onTap: onPressed,
-            child: Container(
-              width: shape == 3
-                  ? _availableWidth / 2
-                  : shape > 0
-                      ? _availableHeight * 3
-                      : _availableWidth,
+            child: SizedBox(
+              width: shape > 0 ? _availableHeight * 3 : _availableWidth,
               height: shape > 0 ? _availableHeight * 2 : _availableHeight,
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: shape == 2 ? _availableHeight : 0.0,
+                  top: shape >= 2 ? _availableHeight : 0.0,
                   bottom: shape == 1 ? _availableHeight : 0.0,
+                  left: shape == 3 ? _availableHeight : 0.0,
                 ),
                 child: Align(
                   alignment: Alignment.center,

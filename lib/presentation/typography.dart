@@ -6,7 +6,7 @@ const fontFamily = 'Roboto';
 class AppTypography {
   static const TextStyle menuButtonText = TextStyle(
     fontFamily: fontFamily,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w800,
     color: black,
     fontSize: 24,
   );

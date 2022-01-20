@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tetris/presentation/pages/menu/menu_cubit.dart';
 import 'package:tetris/presentation/pages/menu/widgets/menu_button_widget.dart';
-import 'package:tetris/presentation/typography.dart';
+import 'package:tetris/presentation/pages/menu/widgets/menu_title_widget.dart';
 
 class MenuLoadedWidget extends HookWidget {
   const MenuLoadedWidget({
@@ -23,12 +23,7 @@ class MenuLoadedWidget extends HookWidget {
         children: [
           const Expanded(
             flex: 2,
-            child: Center(
-              child: Text(
-                "TETRIS",
-                style: AppTypography.menuHeaderText,
-              ),
-            ),
+            child: MenuTitleWidget(),
           ),
           Expanded(
             flex: 9,
@@ -56,7 +51,7 @@ class MenuLoadedWidget extends HookWidget {
                 MenuButtonWidget(
                   shape: 3,
                   onPressed: () => menuCubit.quitPressed(),
-                  buttonText: "QUIT",
+                  buttonText: "TIPS",
                 )
               ],
             ),
