@@ -50,7 +50,7 @@ class MenuLoadedWidget extends HookWidget {
                 ),
                 MenuButtonWidget(
                   shape: 3,
-                  onPressed: () => menuCubit.quitPressed(),
+                  onPressed: () => menuCubit.tipsPressed(),
                   buttonText: "TIPS",
                 )
               ],

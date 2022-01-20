@@ -11,8 +11,9 @@ class MenuCubit extends Cubit<MenuState> {
     emit(const MenuState.loaded());
   }
 
-  Future<void> quitPressed() async {
-    emit(const MenuState.quit());
+  Future<void> tipsPressed() async {
+    emit(const MenuState.tips());
+    emit(const MenuState.dump());
   }
 
   Future<void> newGamePressed() async {

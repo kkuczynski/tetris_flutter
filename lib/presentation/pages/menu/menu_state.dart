@@ -8,11 +8,11 @@ abstract class MenuState with _$MenuState {
 
   const factory MenuState.newGame() = MenuStateNewGame;
 
-  const factory MenuState.continuteGame() = MenuStateContinueGame;
+  const factory MenuState.continueGame() = MenuStateContinueGame;
 
   const factory MenuState.highScores() = MenuStateHighScores;
 
-  const factory MenuState.quit() = MenuStateQuit;
+  const factory MenuState.tips() = MenuStateTips;
 
   const factory MenuState.dump() = MenuStateDump;
 }

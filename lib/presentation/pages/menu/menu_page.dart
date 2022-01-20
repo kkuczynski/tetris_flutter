@@ -1,6 +1,5 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tetris/presentation/pages/base_page.dart';
 import 'package:tetris/presentation/pages/menu/menu_cubit.dart';
@@ -43,7 +42,7 @@ class MenuPage extends BasePage {
   void _cubitStateListener(
       MenuCubit cubit, MenuState state, BuildContext context) {
     state.maybeWhen(
-      quit: () => SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+      tips: () => context.router.push(const TipsPageRoute()),
       newGame: () => context.router.push(GamePageRoute(isNewGame: true)),
       orElse: () {},
     );

@@ -22,4 +22,11 @@ class AppTypography {
     color: customWhite,
     fontSize: 24,
   );
+
+  static const TextStyle tipText = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: black,
+    fontSize: 20,
+  );
 }

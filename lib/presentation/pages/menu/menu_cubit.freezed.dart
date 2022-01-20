@@ -29,7 +29,7 @@ class _$MenuStateTearOff {
     return const MenuStateNewGame();
   }
 
-  MenuStateContinueGame continuteGame() {
+  MenuStateContinueGame continueGame() {
     return const MenuStateContinueGame();
   }
 
@@ -37,8 +37,8 @@ class _$MenuStateTearOff {
     return const MenuStateHighScores();
   }
 
-  MenuStateQuit quit() {
-    return const MenuStateQuit();
+  MenuStateTips tips() {
+    return const MenuStateTips();
   }
 
   MenuStateDump dump() {
@@ -56,9 +56,9 @@ mixin _$MenuState {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) =>
       throw _privateConstructorUsedError;
@@ -67,9 +67,9 @@ mixin _$MenuState {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) =>
       throw _privateConstructorUsedError;
@@ -78,9 +78,9 @@ mixin _$MenuState {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) =>
@@ -90,9 +90,9 @@ mixin _$MenuState {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) =>
       throw _privateConstructorUsedError;
@@ -101,9 +101,9 @@ mixin _$MenuState {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) =>
       throw _privateConstructorUsedError;
@@ -112,9 +112,9 @@ mixin _$MenuState {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) =>
@@ -178,9 +178,9 @@ class _$MenuStateIdle implements MenuStateIdle {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
     return idle();
@@ -192,9 +192,9 @@ class _$MenuStateIdle implements MenuStateIdle {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
     return idle?.call();
@@ -206,9 +206,9 @@ class _$MenuStateIdle implements MenuStateIdle {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
@@ -224,9 +224,9 @@ class _$MenuStateIdle implements MenuStateIdle {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
     return idle(this);
@@ -238,9 +238,9 @@ class _$MenuStateIdle implements MenuStateIdle {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
     return idle?.call(this);
@@ -252,9 +252,9 @@ class _$MenuStateIdle implements MenuStateIdle {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
@@ -311,9 +311,9 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
     return loaded();
@@ -325,9 +325,9 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
     return loaded?.call();
@@ -339,9 +339,9 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
@@ -357,9 +357,9 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
     return loaded(this);
@@ -371,9 +371,9 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
     return loaded?.call(this);
@@ -385,9 +385,9 @@ class _$MenuStateLoaded implements MenuStateLoaded {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
@@ -444,9 +444,9 @@ class _$MenuStateNewGame implements MenuStateNewGame {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
     return newGame();
@@ -458,9 +458,9 @@ class _$MenuStateNewGame implements MenuStateNewGame {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
     return newGame?.call();
@@ -472,9 +472,9 @@ class _$MenuStateNewGame implements MenuStateNewGame {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
@@ -490,9 +490,9 @@ class _$MenuStateNewGame implements MenuStateNewGame {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
     return newGame(this);
@@ -504,9 +504,9 @@ class _$MenuStateNewGame implements MenuStateNewGame {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
     return newGame?.call(this);
@@ -518,9 +518,9 @@ class _$MenuStateNewGame implements MenuStateNewGame {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
@@ -561,7 +561,7 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
 
   @override
   String toString() {
-    return 'MenuState.continuteGame()';
+    return 'MenuState.continueGame()';
   }
 
   @override
@@ -578,12 +578,12 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
-    return continuteGame();
+    return continueGame();
   }
 
   @override
@@ -592,12 +592,12 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
-    return continuteGame?.call();
+    return continueGame?.call();
   }
 
   @override
@@ -606,14 +606,14 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
-    if (continuteGame != null) {
-      return continuteGame();
+    if (continueGame != null) {
+      return continueGame();
     }
     return orElse();
   }
@@ -624,12 +624,12 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
-    return continuteGame(this);
+    return continueGame(this);
   }
 
   @override
@@ -638,12 +638,12 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
-    return continuteGame?.call(this);
+    return continueGame?.call(this);
   }
 
   @override
@@ -652,14 +652,14 @@ class _$MenuStateContinueGame implements MenuStateContinueGame {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
-    if (continuteGame != null) {
-      return continuteGame(this);
+    if (continueGame != null) {
+      return continueGame(this);
     }
     return orElse();
   }
@@ -712,9 +712,9 @@ class _$MenuStateHighScores implements MenuStateHighScores {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
     return highScores();
@@ -726,9 +726,9 @@ class _$MenuStateHighScores implements MenuStateHighScores {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
     return highScores?.call();
@@ -740,9 +740,9 @@ class _$MenuStateHighScores implements MenuStateHighScores {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
@@ -758,9 +758,9 @@ class _$MenuStateHighScores implements MenuStateHighScores {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
     return highScores(this);
@@ -772,9 +772,9 @@ class _$MenuStateHighScores implements MenuStateHighScores {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
     return highScores?.call(this);
@@ -786,9 +786,9 @@ class _$MenuStateHighScores implements MenuStateHighScores {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
@@ -804,36 +804,36 @@ abstract class MenuStateHighScores implements MenuState {
 }
 
 /// @nodoc
-abstract class $MenuStateQuitCopyWith<$Res> {
-  factory $MenuStateQuitCopyWith(
-          MenuStateQuit value, $Res Function(MenuStateQuit) then) =
-      _$MenuStateQuitCopyWithImpl<$Res>;
+abstract class $MenuStateTipsCopyWith<$Res> {
+  factory $MenuStateTipsCopyWith(
+          MenuStateTips value, $Res Function(MenuStateTips) then) =
+      _$MenuStateTipsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$MenuStateQuitCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
-    implements $MenuStateQuitCopyWith<$Res> {
-  _$MenuStateQuitCopyWithImpl(
-      MenuStateQuit _value, $Res Function(MenuStateQuit) _then)
-      : super(_value, (v) => _then(v as MenuStateQuit));
+class _$MenuStateTipsCopyWithImpl<$Res> extends _$MenuStateCopyWithImpl<$Res>
+    implements $MenuStateTipsCopyWith<$Res> {
+  _$MenuStateTipsCopyWithImpl(
+      MenuStateTips _value, $Res Function(MenuStateTips) _then)
+      : super(_value, (v) => _then(v as MenuStateTips));
 
   @override
-  MenuStateQuit get _value => super._value as MenuStateQuit;
+  MenuStateTips get _value => super._value as MenuStateTips;
 }
 
 /// @nodoc
 
-class _$MenuStateQuit implements MenuStateQuit {
-  const _$MenuStateQuit();
+class _$MenuStateTips implements MenuStateTips {
+  const _$MenuStateTips();
 
   @override
   String toString() {
-    return 'MenuState.quit()';
+    return 'MenuState.tips()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is MenuStateQuit);
+    return identical(this, other) || (other is MenuStateTips);
   }
 
   @override
@@ -845,12 +845,12 @@ class _$MenuStateQuit implements MenuStateQuit {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
-    return quit();
+    return tips();
   }
 
   @override
@@ -859,12 +859,12 @@ class _$MenuStateQuit implements MenuStateQuit {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
-    return quit?.call();
+    return tips?.call();
   }
 
   @override
@@ -873,14 +873,14 @@ class _$MenuStateQuit implements MenuStateQuit {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
-    if (quit != null) {
-      return quit();
+    if (tips != null) {
+      return tips();
     }
     return orElse();
   }
@@ -891,12 +891,12 @@ class _$MenuStateQuit implements MenuStateQuit {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
-    return quit(this);
+    return tips(this);
   }
 
   @override
@@ -905,12 +905,12 @@ class _$MenuStateQuit implements MenuStateQuit {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
-    return quit?.call(this);
+    return tips?.call(this);
   }
 
   @override
@@ -919,21 +919,21 @@ class _$MenuStateQuit implements MenuStateQuit {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
-    if (quit != null) {
-      return quit(this);
+    if (tips != null) {
+      return tips(this);
     }
     return orElse();
   }
 }
 
-abstract class MenuStateQuit implements MenuState {
-  const factory MenuStateQuit() = _$MenuStateQuit;
+abstract class MenuStateTips implements MenuState {
+  const factory MenuStateTips() = _$MenuStateTips;
 }
 
 /// @nodoc
@@ -978,9 +978,9 @@ class _$MenuStateDump implements MenuStateDump {
     required TResult Function() idle,
     required TResult Function() loaded,
     required TResult Function() newGame,
-    required TResult Function() continuteGame,
+    required TResult Function() continueGame,
     required TResult Function() highScores,
-    required TResult Function() quit,
+    required TResult Function() tips,
     required TResult Function() dump,
   }) {
     return dump();
@@ -992,9 +992,9 @@ class _$MenuStateDump implements MenuStateDump {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
   }) {
     return dump?.call();
@@ -1006,9 +1006,9 @@ class _$MenuStateDump implements MenuStateDump {
     TResult Function()? idle,
     TResult Function()? loaded,
     TResult Function()? newGame,
-    TResult Function()? continuteGame,
+    TResult Function()? continueGame,
     TResult Function()? highScores,
-    TResult Function()? quit,
+    TResult Function()? tips,
     TResult Function()? dump,
     required TResult orElse(),
   }) {
@@ -1024,9 +1024,9 @@ class _$MenuStateDump implements MenuStateDump {
     required TResult Function(MenuStateIdle value) idle,
     required TResult Function(MenuStateLoaded value) loaded,
     required TResult Function(MenuStateNewGame value) newGame,
-    required TResult Function(MenuStateContinueGame value) continuteGame,
+    required TResult Function(MenuStateContinueGame value) continueGame,
     required TResult Function(MenuStateHighScores value) highScores,
-    required TResult Function(MenuStateQuit value) quit,
+    required TResult Function(MenuStateTips value) tips,
     required TResult Function(MenuStateDump value) dump,
   }) {
     return dump(this);
@@ -1038,9 +1038,9 @@ class _$MenuStateDump implements MenuStateDump {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
   }) {
     return dump?.call(this);
@@ -1052,9 +1052,9 @@ class _$MenuStateDump implements MenuStateDump {
     TResult Function(MenuStateIdle value)? idle,
     TResult Function(MenuStateLoaded value)? loaded,
     TResult Function(MenuStateNewGame value)? newGame,
-    TResult Function(MenuStateContinueGame value)? continuteGame,
+    TResult Function(MenuStateContinueGame value)? continueGame,
     TResult Function(MenuStateHighScores value)? highScores,
-    TResult Function(MenuStateQuit value)? quit,
+    TResult Function(MenuStateTips value)? tips,
     TResult Function(MenuStateDump value)? dump,
     required TResult orElse(),
   }) {
