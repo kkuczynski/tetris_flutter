@@ -19,7 +19,12 @@ class GameLoadedWidget extends HookWidget {
   List<GameCubeWidget> gameGrid = [];
   bool running = false;
   Timer? _timer;
+  int time = 300;
   List<int> colors = [];
+  Duration? duration;
+  final int swipeSensitivity = 12;
+  bool isSkipping = false;
+
   void updateColors() {
     colors = gameCubit.getCubeColors();
     int i = 0;
@@ -30,11 +35,13 @@ class GameLoadedWidget extends HookWidget {
   }
 
   void run() {
-    const duration = Duration(milliseconds: 400);
+    duration = Duration(milliseconds: time);
 
     _timer?.cancel();
-    _timer = Timer.periodic(duration, (Timer timer) {
-      gameCubit.proceedGame();
+    _timer = Timer.periodic(duration!, (Timer timer) {
+      if (gameCubit.proceedGame()) {
+        isSkipping = false;
+      }
       score.value = gameCubit.getScore();
       updateColors();
       return timer.cancel();
@@ -97,26 +104,35 @@ class GameLoadedWidget extends HookWidget {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                  onTap: () async => {
-                        gameCubit.moveLeft(),
-                        updateColors(),
-                      }),
+                onTap: () async => {
+                  gameCubit.moveLeft(),
+                  updateColors(),
+                },
+              ),
             ),
             Expanded(
               flex: 1,
               child: GestureDetector(
-                  onTap: () async => {
-                        gameCubit.rotate(),
-                        updateColors(),
-                      }),
+                onTap: () async => {
+                  gameCubit.rotate(),
+                  updateColors(),
+                },
+                onVerticalDragUpdate: (details) => {
+                  if (details.delta.dy > swipeSensitivity)
+                    {
+                      gameCubit.skip(),
+                    },
+                },
+              ),
             ),
             Expanded(
               flex: 1,
               child: GestureDetector(
-                  onTap: () async => {
-                        gameCubit.moveRight(),
-                        updateColors(),
-                      }),
+                onTap: () async => {
+                  gameCubit.moveRight(),
+                  updateColors(),
+                },
+              ),
             ),
           ],
         )

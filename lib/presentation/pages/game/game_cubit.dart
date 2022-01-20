@@ -32,20 +32,23 @@ class GameCubit extends Cubit<GameState> {
     }
   }
 
-  void proceedGame() {
+  bool proceedGame() {
     if (activeTetro == 0 && !gameFinished) {
       currentTetro = generateTetro();
       if (canSpawn()) {
         spawnTetro();
+        return true;
       } else {
         gameFinished = true;
+        return true;
       }
     } else {
       gravity();
+      return false;
     }
   }
 
-  void gravity() {
+  bool gravity() {
     if (canMoveDown()) {
       tetroBeginXY.last += 1;
       for (int y = 19; y >= 0; y--) {
@@ -67,7 +70,9 @@ class GameCubit extends Cubit<GameState> {
       }
       currentTetro = [];
       activeTetro = 0;
+      return false;
     }
+    return true;
   }
 
   rotate() {
@@ -92,22 +97,6 @@ class GameCubit extends Cubit<GameState> {
             dynamicGameArray[j][i] = tmpSwap;
           }
         }
-
-        // for (int x = 0; x < size / 2; x++) {
-        //   for (int y = x; y < size - x - 1; y++) {
-        //     int temp = dynamicGameArray[x][y];
-        //
-        //     dynamicGameArray[x][y] = dynamicGameArray[y][size - 1 - x];
-        //
-        //     dynamicGameArray[y][size - 1 - x] =
-        //         dynamicGameArray[size - 1 - x][size - 1 - y];
-        //
-        //     dynamicGameArray[size - 1 - x][size - 1 - y] =
-        //         dynamicGameArray[size - 1 - y][x];
-        //
-        //     dynamicGameArray[size - 1 - y][x] = temp;
-        //   }
-        // }
 
         if (!moveBackFrom0x0()) {
           dynamicGameArray = tmpDynamicGameArray;
@@ -229,6 +218,14 @@ class GameCubit extends Cubit<GameState> {
       return -1;
     } else {
       return 0;
+    }
+  }
+
+  void skip() {
+    while (activeTetro > 0) {
+      if (!gravity()) {
+        return;
+      }
     }
   }
 
