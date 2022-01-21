@@ -23,7 +23,7 @@ class GameLoadedWidget extends HookWidget {
   final int _time = 10;
   List<int> _colors = [];
   Duration? _duration;
-  final int _swipeSensitivity = 12;
+  final int _swipeSensitivity = 4;
   bool _isSkipping = false;
   bool _canProceedGame = true;
 
