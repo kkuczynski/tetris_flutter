@@ -3,10 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tetris/presentation/style.dart';
 
 class GameCubeWidget extends HookWidget {
-  ValueNotifier<int> color = useState(0);
   final int y;
   final int x;
   final double size;
+  ValueNotifier<int> color = useState(0);
   List<Color> colors = [
     darkGrey,
     cyan,

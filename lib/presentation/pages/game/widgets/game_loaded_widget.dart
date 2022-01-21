@@ -98,13 +98,16 @@ class GameLoadedWidget extends HookWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: _availableHeight,
-              width: _availableWidth,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 10,
-                children: _gameGrid,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: SizedBox(
+                height: _availableHeight,
+                width: _availableWidth,
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 10,
+                  children: _gameGrid,
+                ),
               ),
             ),
           ],

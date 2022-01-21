@@ -15,6 +15,7 @@ Future<void> registerCubit(GetIt getIt) async {
     ..registerFactory(() => GameCubit(
           getIt(),
           getIt(),
+          getIt(),
         ))
     ..registerFactory(() => TipsCubit());
 }

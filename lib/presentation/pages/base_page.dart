@@ -8,6 +8,7 @@ abstract class BasePage extends HookWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: buildContent(context),
       ),

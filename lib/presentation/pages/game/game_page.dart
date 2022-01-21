@@ -1,8 +1,11 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tetris/presentation/pages/base_page.dart';
 import 'package:tetris/presentation/pages/game/game_cubit.dart';
 import 'package:tetris/presentation/pages/game/widgets/game_loaded_widget.dart';
+import 'package:tetris/presentation/router/main_router.gr.dart';
+import 'package:tetris/utils/dialogs/game_finished_dialog.dart';
 import 'package:tetris/utils/hooks/cubit_hook.dart';
 
 class GamePage extends BasePage {
@@ -41,6 +44,9 @@ class GamePage extends BasePage {
   void _cubitStateListener(
       GameCubit cubit, GameState state, BuildContext context) {
     state.maybeWhen(
+      gameFinished: (score) => showEndGameDialog(context, score, cubit),
+      scoreSaved: () => context.router.pushAndPopUntil(const MenuPageRoute(),
+          predicate: (Route<dynamic> route) => false),
       orElse: () {},
     );
   }

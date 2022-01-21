@@ -24,6 +24,16 @@ class _$GameStateTearOff {
   GameStateLoaded loaded() {
     return const GameStateLoaded();
   }
+
+  GameStateGameFinished gameFinished(int score) {
+    return GameStateGameFinished(
+      score,
+    );
+  }
+
+  GameStateScoreSaved scoreSaved() {
+    return const GameStateScoreSaved();
+  }
 }
 
 /// @nodoc
@@ -35,18 +45,24 @@ mixin _$GameState {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loaded,
+    required TResult Function(int score) gameFinished,
+    required TResult Function() scoreSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,18 +70,24 @@ mixin _$GameState {
   TResult map<TResult extends Object?>({
     required TResult Function(GameStateIdle value) idle,
     required TResult Function(GameStateLoaded value) loaded,
+    required TResult Function(GameStateGameFinished value) gameFinished,
+    required TResult Function(GameStateScoreSaved value) scoreSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GameStateIdle value)? idle,
     TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GameStateIdle value)? idle,
     TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,6 +149,8 @@ class _$GameStateIdle implements GameStateIdle {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loaded,
+    required TResult Function(int score) gameFinished,
+    required TResult Function() scoreSaved,
   }) {
     return idle();
   }
@@ -136,6 +160,8 @@ class _$GameStateIdle implements GameStateIdle {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
   }) {
     return idle?.call();
   }
@@ -145,6 +171,8 @@ class _$GameStateIdle implements GameStateIdle {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -158,6 +186,8 @@ class _$GameStateIdle implements GameStateIdle {
   TResult map<TResult extends Object?>({
     required TResult Function(GameStateIdle value) idle,
     required TResult Function(GameStateLoaded value) loaded,
+    required TResult Function(GameStateGameFinished value) gameFinished,
+    required TResult Function(GameStateScoreSaved value) scoreSaved,
   }) {
     return idle(this);
   }
@@ -167,6 +197,8 @@ class _$GameStateIdle implements GameStateIdle {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GameStateIdle value)? idle,
     TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
   }) {
     return idle?.call(this);
   }
@@ -176,6 +208,8 @@ class _$GameStateIdle implements GameStateIdle {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GameStateIdle value)? idle,
     TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -230,6 +264,8 @@ class _$GameStateLoaded implements GameStateLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
     required TResult Function() loaded,
+    required TResult Function(int score) gameFinished,
+    required TResult Function() scoreSaved,
   }) {
     return loaded();
   }
@@ -239,6 +275,8 @@ class _$GameStateLoaded implements GameStateLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
   }) {
     return loaded?.call();
   }
@@ -248,6 +286,8 @@ class _$GameStateLoaded implements GameStateLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
     TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -261,6 +301,8 @@ class _$GameStateLoaded implements GameStateLoaded {
   TResult map<TResult extends Object?>({
     required TResult Function(GameStateIdle value) idle,
     required TResult Function(GameStateLoaded value) loaded,
+    required TResult Function(GameStateGameFinished value) gameFinished,
+    required TResult Function(GameStateScoreSaved value) scoreSaved,
   }) {
     return loaded(this);
   }
@@ -270,6 +312,8 @@ class _$GameStateLoaded implements GameStateLoaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(GameStateIdle value)? idle,
     TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
   }) {
     return loaded?.call(this);
   }
@@ -279,6 +323,8 @@ class _$GameStateLoaded implements GameStateLoaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GameStateIdle value)? idle,
     TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -290,4 +336,267 @@ class _$GameStateLoaded implements GameStateLoaded {
 
 abstract class GameStateLoaded implements GameState {
   const factory GameStateLoaded() = _$GameStateLoaded;
+}
+
+/// @nodoc
+abstract class $GameStateGameFinishedCopyWith<$Res> {
+  factory $GameStateGameFinishedCopyWith(GameStateGameFinished value,
+          $Res Function(GameStateGameFinished) then) =
+      _$GameStateGameFinishedCopyWithImpl<$Res>;
+  $Res call({int score});
+}
+
+/// @nodoc
+class _$GameStateGameFinishedCopyWithImpl<$Res>
+    extends _$GameStateCopyWithImpl<$Res>
+    implements $GameStateGameFinishedCopyWith<$Res> {
+  _$GameStateGameFinishedCopyWithImpl(
+      GameStateGameFinished _value, $Res Function(GameStateGameFinished) _then)
+      : super(_value, (v) => _then(v as GameStateGameFinished));
+
+  @override
+  GameStateGameFinished get _value => super._value as GameStateGameFinished;
+
+  @override
+  $Res call({
+    Object? score = freezed,
+  }) {
+    return _then(GameStateGameFinished(
+      score == freezed
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GameStateGameFinished implements GameStateGameFinished {
+  const _$GameStateGameFinished(this.score);
+
+  @override
+  final int score;
+
+  @override
+  String toString() {
+    return 'GameState.gameFinished(score: $score)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is GameStateGameFinished &&
+            (identical(other.score, score) ||
+                const DeepCollectionEquality().equals(other.score, score)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(score);
+
+  @JsonKey(ignore: true)
+  @override
+  $GameStateGameFinishedCopyWith<GameStateGameFinished> get copyWith =>
+      _$GameStateGameFinishedCopyWithImpl<GameStateGameFinished>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loaded,
+    required TResult Function(int score) gameFinished,
+    required TResult Function() scoreSaved,
+  }) {
+    return gameFinished(score);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
+  }) {
+    return gameFinished?.call(score);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
+    required TResult orElse(),
+  }) {
+    if (gameFinished != null) {
+      return gameFinished(score);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GameStateIdle value) idle,
+    required TResult Function(GameStateLoaded value) loaded,
+    required TResult Function(GameStateGameFinished value) gameFinished,
+    required TResult Function(GameStateScoreSaved value) scoreSaved,
+  }) {
+    return gameFinished(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GameStateIdle value)? idle,
+    TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
+  }) {
+    return gameFinished?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GameStateIdle value)? idle,
+    TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
+    required TResult orElse(),
+  }) {
+    if (gameFinished != null) {
+      return gameFinished(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GameStateGameFinished implements GameState {
+  const factory GameStateGameFinished(int score) = _$GameStateGameFinished;
+
+  int get score => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GameStateGameFinishedCopyWith<GameStateGameFinished> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GameStateScoreSavedCopyWith<$Res> {
+  factory $GameStateScoreSavedCopyWith(
+          GameStateScoreSaved value, $Res Function(GameStateScoreSaved) then) =
+      _$GameStateScoreSavedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$GameStateScoreSavedCopyWithImpl<$Res>
+    extends _$GameStateCopyWithImpl<$Res>
+    implements $GameStateScoreSavedCopyWith<$Res> {
+  _$GameStateScoreSavedCopyWithImpl(
+      GameStateScoreSaved _value, $Res Function(GameStateScoreSaved) _then)
+      : super(_value, (v) => _then(v as GameStateScoreSaved));
+
+  @override
+  GameStateScoreSaved get _value => super._value as GameStateScoreSaved;
+}
+
+/// @nodoc
+
+class _$GameStateScoreSaved implements GameStateScoreSaved {
+  const _$GameStateScoreSaved();
+
+  @override
+  String toString() {
+    return 'GameState.scoreSaved()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is GameStateScoreSaved);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() idle,
+    required TResult Function() loaded,
+    required TResult Function(int score) gameFinished,
+    required TResult Function() scoreSaved,
+  }) {
+    return scoreSaved();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
+  }) {
+    return scoreSaved?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? idle,
+    TResult Function()? loaded,
+    TResult Function(int score)? gameFinished,
+    TResult Function()? scoreSaved,
+    required TResult orElse(),
+  }) {
+    if (scoreSaved != null) {
+      return scoreSaved();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GameStateIdle value) idle,
+    required TResult Function(GameStateLoaded value) loaded,
+    required TResult Function(GameStateGameFinished value) gameFinished,
+    required TResult Function(GameStateScoreSaved value) scoreSaved,
+  }) {
+    return scoreSaved(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GameStateIdle value)? idle,
+    TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
+  }) {
+    return scoreSaved?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GameStateIdle value)? idle,
+    TResult Function(GameStateLoaded value)? loaded,
+    TResult Function(GameStateGameFinished value)? gameFinished,
+    TResult Function(GameStateScoreSaved value)? scoreSaved,
+    required TResult orElse(),
+  }) {
+    if (scoreSaved != null) {
+      return scoreSaved(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GameStateScoreSaved implements GameState {
+  const factory GameStateScoreSaved() = _$GameStateScoreSaved;
 }

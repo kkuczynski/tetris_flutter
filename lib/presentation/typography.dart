@@ -29,4 +29,32 @@ class AppTypography {
     color: black,
     fontSize: 20,
   );
+
+  static const TextStyle gameFinishedTitle = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: yellow,
+    fontSize: 28,
+  );
+
+  static const TextStyle gameFinishedInfo = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: pink,
+    fontSize: 24,
+  );
+
+  static const TextStyle gameFinishedName = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: pink,
+    fontSize: 24,
+  );
+
+  static const TextStyle gameFinishedPoints = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: green,
+    fontSize: 64,
+  );
 }
