@@ -52,6 +52,7 @@ class MenuPage extends BasePage {
         await context.router.push(GamePageRoute(isNewGame: false)),
         cubit.reload(),
       },
+      highScores: () => {context.router.push(const HighScoresPageRoute())},
       orElse: () {},
     );
   }

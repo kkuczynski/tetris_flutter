@@ -9,5 +9,5 @@ const Color purple = Color(0xFFB19CD9);
 const Color brown = Color(0xFF836853);
 const Color customWhite = Color(0xDDFFFFFF);
 const Color green = Color(0xFFAAFFAA);
-const Color lightGrey = Color(0xAA777777);
+const Color lightGrey = Color(0xAA999999);
 const Color darkGrey = Color(0xFF222222);

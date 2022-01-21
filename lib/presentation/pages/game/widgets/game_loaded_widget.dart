@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tetris/presentation/pages/game/game_cubit.dart';
 import 'package:tetris/presentation/pages/game/widgets/game_cube_widget.dart';
 import 'package:tetris/presentation/typography.dart';
+import 'package:tetris/utils/custom_scroll_behavior.dart';
 
 class GameLoadedWidget extends HookWidget {
   GameLoadedWidget({
@@ -24,6 +25,7 @@ class GameLoadedWidget extends HookWidget {
   Duration? _duration;
   final int _swipeSensitivity = 12;
   bool _isSkipping = false;
+  bool _canProceedGame = true;
 
   void updateColors() {
     _colors = gameCubit.getCubeColors();
@@ -38,20 +40,22 @@ class GameLoadedWidget extends HookWidget {
     _duration = Duration(milliseconds: _time);
 
     _timer?.cancel();
-    _timer = Timer.periodic(_duration!, (Timer timer) {
-      if (frames.value % 15 == 0) {
-        gameCubit.proceedGame();
-        score.value = gameCubit.getScore();
-      }
-      if (_isSkipping) {
-        if (!gameCubit.proceedGame()) {
-          _isSkipping = false;
+    if (_canProceedGame) {
+      _timer = Timer.periodic(_duration!, (Timer timer) {
+        if (frames.value % 15 == 0) {
+          _canProceedGame = gameCubit.proceedGame();
+          score.value = gameCubit.getScore();
         }
-      }
-      updateColors();
-      frames.value++;
-      return timer.cancel();
-    });
+        if (_isSkipping) {
+          if (!gameCubit.proceedGame()) {
+            _isSkipping = false;
+          }
+        }
+        updateColors();
+        frames.value++;
+        return timer.cancel();
+      });
+    }
   }
 
   @override
@@ -103,10 +107,13 @@ class GameLoadedWidget extends HookWidget {
               child: SizedBox(
                 height: _availableHeight,
                 width: _availableWidth,
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 10,
-                  children: _gameGrid,
+                child: ScrollConfiguration(
+                  behavior: CustomScrollBehavior(),
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 10,
+                    children: _gameGrid,
+                  ),
                 ),
               ),
             ),
@@ -121,6 +128,12 @@ class GameLoadedWidget extends HookWidget {
                 onTap: () async => {
                   gameCubit.moveLeft(),
                   updateColors(),
+                },
+                onVerticalDragUpdate: (details) => {
+                  if (details.delta.dy > _swipeSensitivity)
+                    {
+                      _isSkipping = true,
+                    },
                 },
               ),
             ),
@@ -145,6 +158,12 @@ class GameLoadedWidget extends HookWidget {
                 onTap: () async => {
                   gameCubit.moveRight(),
                   updateColors(),
+                },
+                onVerticalDragUpdate: (details) => {
+                  if (details.delta.dy > _swipeSensitivity)
+                    {
+                      _isSkipping = true,
+                    },
                 },
               ),
             ),

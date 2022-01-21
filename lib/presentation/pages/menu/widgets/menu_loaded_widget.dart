@@ -52,7 +52,7 @@ class MenuLoadedWidget extends HookWidget {
                 ),
                 MenuButtonWidget(
                   shape: 2,
-                  onPressed: () {},
+                  onPressed: () => menuCubit.highScoresPresses(),
                   buttonText: "HIGH SCORES",
                 ),
                 MenuButtonWidget(

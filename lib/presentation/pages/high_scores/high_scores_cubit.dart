@@ -22,5 +22,6 @@ class HighScoresCubit extends high_scores_cubit.Cubit<HighScoresState> {
   Future<void> fetchScores() async {
     Iterable<Score> scores = await getAllScoresUseCase.call();
     scoreList = scores.sorted((a, b) => a.score.compareTo(b.score));
+    scoreList.reverseRange(0, scoreList.length);
   }
 }

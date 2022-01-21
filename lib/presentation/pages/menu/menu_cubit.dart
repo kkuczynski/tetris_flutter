@@ -39,8 +39,12 @@ class MenuCubit extends Cubit<MenuState> {
   }
 
   Future<void> continueGamePressed() async {
-    GameData? gameData = await getGameDataUseCase.call();
     emit(const MenuState.continueGame());
+    emit(const MenuState.dump());
+  }
+
+  Future<void> highScoresPresses() async {
+    emit(const MenuState.highScores());
     emit(const MenuState.dump());
   }
 

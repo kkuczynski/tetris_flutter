@@ -57,4 +57,25 @@ class AppTypography {
     color: green,
     fontSize: 64,
   );
+
+  static const TextStyle highScoresTitle = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: cyan,
+    fontSize: 36,
+  );
+
+  static const TextStyle highScoreData = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: black,
+    fontSize: 20,
+  );
+
+  static const TextStyle highScoreHeader = TextStyle(
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w600,
+    color: yellow,
+    fontSize: 20,
+  );
 }

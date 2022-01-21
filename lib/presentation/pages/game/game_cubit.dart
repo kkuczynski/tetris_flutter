@@ -72,7 +72,7 @@ class GameCubit extends Cubit<GameState> {
         _spawnTetro();
         _gameData!.gameFinished = false;
         putGameDataUseCase.call(_gameData!);
-        return false;
+        return true;
       } else if (!_gameData!.gameFinished) {
         _spawnTetro();
         _gameData!.gameFinished = true;
@@ -83,8 +83,9 @@ class GameCubit extends Cubit<GameState> {
         return false;
       }
     } else {
+      _gravity();
       putGameDataUseCase.call(_gameData!);
-      return _gravity();
+      return true;
     }
   }
 
@@ -119,7 +120,12 @@ class GameCubit extends Cubit<GameState> {
   }
 
   void rotate() {
-    List<List<int>> tmpDynamicGameArray = _gameData!.dynamicGameArray;
+    List<List<int>> tmpDynamicGameArray = [];
+    for (int y = 0; y < 20; y++) {
+      tmpDynamicGameArray.add(List.from(_gameData!.dynamicGameArray[y]));
+    }
+    List.from(_gameData!.dynamicGameArray);
+    List<int> tmpBeginXY = List.from(_gameData!.tetroBeginXY);
     try {
       int size = 3;
       if (_gameData!.activeTetro > 0 && _gameData!.activeTetro != 5) {
@@ -144,13 +150,16 @@ class GameCubit extends Cubit<GameState> {
 
         if (!_moveBackFrom0x0()) {
           _gameData!.dynamicGameArray = tmpDynamicGameArray;
+          _gameData!.tetroBeginXY = tmpBeginXY;
         }
         if (_tetroBroke(tmpDynamicGameArray)) {
           _gameData!.dynamicGameArray = tmpDynamicGameArray;
+          _gameData!.tetroBeginXY = tmpBeginXY;
         }
       }
     } catch (e) {
       _gameData!.dynamicGameArray = tmpDynamicGameArray;
+      _gameData!.tetroBeginXY = tmpBeginXY;
     }
     putGameDataUseCase.call(_gameData!);
   }
