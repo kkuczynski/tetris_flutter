@@ -41,7 +41,7 @@ class EntryPage extends BasePage {
   void _cubitStateListener(
       EntryCubit cubit, EntryState state, BuildContext context) {
     state.maybeWhen(
-      loaded: () => context.router.popAndPush(const MenuPageRoute()),
+      loaded: () => context.router.replace(const MenuPageRoute()),
       orElse: () {},
     );
   }
